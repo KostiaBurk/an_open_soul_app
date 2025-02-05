@@ -1,0 +1,31 @@
+name: an_open_soul_app
+description: "A new Flutter project."
+version: 1.0.0+1
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.2.1
+  characters: ^1.3.0
+  collection: ^1.19.0
+  material_color_utilities: ^0.11.1
+  meta: ^1.15.0
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/logo.png
+    - assets/emojis/very_bad.gif
+    - assets/emojis/bad.gif
+    - assets/emojis/neutral.gif
+    - assets/emojis/okay.gif
+    - assets/emojis/excellent.gif
+
