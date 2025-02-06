@@ -192,7 +192,7 @@ class _PeopleChatScreenState extends State<PeopleChatScreen> {
                         children: [
                           Row(
                             children: [
-                              CircleAvatar(
+                              const CircleAvatar(
                                 radius: 30, // Уменьшенный размер аватара
                                 backgroundImage: AssetImage('assets/images/avatar_placeholder.png'),
                               ),
