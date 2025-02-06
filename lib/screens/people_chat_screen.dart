@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:an_open_soul_app/widgets/custom_drawer.dart'; // Импортируем CustomDrawer
+import 'package:an_open_soul_app/widgets/custom_drawer.dart';
+import 'package:an_open_soul_app/screens/chat_screen.dart';
 
 class PeopleChatScreen extends StatefulWidget {
   const PeopleChatScreen({super.key});
@@ -21,7 +22,7 @@ class _PeopleChatScreenState extends State<PeopleChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: const CustomDrawer(), // Здесь теперь используется CustomDrawer
+      endDrawer: const CustomDrawer(),
       body: Stack(
         children: [
           // Фон
@@ -164,7 +165,7 @@ class _PeopleChatScreenState extends State<PeopleChatScreen> {
               ],
             ),
           ),
-          // Список карточек пользователей
+          // Список пользователей
           Positioned(
             top: MediaQuery.of(context).padding.top + 150,
             left: 20,
@@ -177,8 +178,6 @@ class _PeopleChatScreenState extends State<PeopleChatScreen> {
                   return const SizedBox.shrink();
                 }
                 return GestureDetector(
-                  onTapDown: (_) {},
-                  onTapUp: (_) {},
                   child: Card(
                     elevation: 4,
                     shape: RoundedRectangleBorder(
@@ -186,14 +185,14 @@ class _PeopleChatScreenState extends State<PeopleChatScreen> {
                     ),
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     child: Padding(
-                      padding: const EdgeInsets.all(16), // Меньше отступы для уменьшения размера
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               const CircleAvatar(
-                                radius: 30, // Уменьшенный размер аватара
+                                radius: 30,
                                 backgroundImage: AssetImage('assets/images/avatar_placeholder.png'),
                               ),
                               const SizedBox(width: 10),
@@ -204,37 +203,24 @@ class _PeopleChatScreenState extends State<PeopleChatScreen> {
                                     Text(
                                       _users[index]['name']!,
                                       style: GoogleFonts.roboto(
-                                        fontSize: 16, // Меньший шрифт для уменьшения размера
+                                        fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: "Status: ",
-                                            style: GoogleFonts.roboto(
-                                              fontSize: 14, // Меньший шрифт
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: _users[index]['status'],
-                                            style: GoogleFonts.roboto(
-                                              fontSize: 14, // Меньший шрифт
-                                              color: _users[index]['status'] == 'Online'
-                                                  ? Colors.green
-                                                  : Colors.red,
-                                            ),
-                                          ),
-                                        ],
+                                    Text(
+                                      _users[index]['status']!,
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 14,
+                                        color: _users[index]['status'] == 'Online'
+                                            ? Colors.green
+                                            : Colors.red,
                                       ),
                                     ),
-                                    const SizedBox(height: 6), // Меньший отступ
+                                    const SizedBox(height: 6),
                                     Text(
                                       "Looking for support",
                                       style: GoogleFonts.roboto(
-                                        fontSize: 14, // Меньший шрифт
+                                        fontSize: 14,
                                         fontStyle: FontStyle.italic,
                                         color: Colors.grey[600],
                                       ),
@@ -242,7 +228,7 @@ class _PeopleChatScreenState extends State<PeopleChatScreen> {
                                   ],
                                 ),
                               ),
-                              // Иконка сердечка (справа сверху)
+                              // Иконка лайка (сердечко)
                               IconButton(
                                 icon: const Icon(Icons.favorite_border),
                                 onPressed: () {
@@ -251,49 +237,53 @@ class _PeopleChatScreenState extends State<PeopleChatScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 5), // Меньший отступ
-                          // Кнопка блокировки
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Transform.translate(
-                              offset: const Offset(0, 20),
-                              child: IconButton(
-                                icon: const Icon(Icons.block, color: Colors.red),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text("Block User"),
-                                      content: const Text("Are you sure you want to block this user?"),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () => Navigator.of(context).pop(),
-                                          child: const Text("Cancel"),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            // Логика блокировки пользователя
-                                          },
-                                          child: const Text("Yes"),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
+                          const SizedBox(height: 5),
                           // Кнопка отправки сообщения
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
-                                // Переход к чату с этим пользователем
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatScreen(
+                                      userName: _users[index]['name']!,
+                                    ),
+                                  ),
+                                );
                               },
                               child: Text(
                                 'Send Message',
                                 style: GoogleFonts.roboto(fontSize: 14),
                               ),
+                            ),
+                          ),
+                          // Кнопка блокировки
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: IconButton(
+                              icon: const Icon(Icons.block, color: Colors.red),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text("Block User"),
+                                    content: const Text("Are you sure you want to block this user?"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.of(context).pop(),
+                                        child: const Text("Cancel"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          // Логика блокировки пользователя
+                                        },
+                                        child: const Text("Yes"),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],
