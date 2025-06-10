@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class OpenAIService {
-  final String _apiKey = '***REMOVED***proj-7ujr68azq-RBImAo5m0WDex6ILhOKxmCVn3G49wS4qiDl2H1ANd845DsWAg8YW1XsoPwqJHHpiT3BlbkFJJv25atnxK4pP_5p6R4cldruQiE-XRYPUiqnOLMK59-P5qjenbw27fjuFxqMg17Wr4RyMIhTEMA';
+  final String _apiKey = 'YOUR_API_KEY_HERE';
 
  Future<String> sendChat(List<Map<String, String>> chatHistory, {String model = "gpt-3.5-turbo"}) async {
   const url = 'https://api.openai.com/v1/chat/completions';
