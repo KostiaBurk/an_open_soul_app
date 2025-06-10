@@ -1,0 +1,14 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"
+
+FLUTTER_ROOT=/Users/kostiaburkaltsev/flutter
+FLUTTER_APPLICATION_PATH=/Users/kostiaburkaltsev/Documents/my_flutter_app/AnOpenSoul/flutter_application_1
+FLUTTER_TARGET=lib/main.dart
+FLUTTER_BUILD_DIR=build
+SYMROOT=${SOURCE_ROOT}/../build/ios
+OTHER_LDFLAGS=$(inherited) -framework Flutter
+FRAMEWORK_SEARCH_PATHS=$(inherited) $(FLUTTER_ROOT)/bin/cache/artifacts/engine/ios
+ENABLE_BITCODE=NO
+DEBUG_INFORMATION_FORMAT=dwarf
+HEADER_SEARCH_PATHS = $(inherited) $(SRCROOT)/Pods/libwebp/src $(SRCROOT)/Pods/libwebp/src/dsp
+flutter_enable_impeller = false

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "128090321920",
+    "project_id": "an-open-soul",
+    "storage_bucket": "an-open-soul.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128090321920:android:2fce11c7d134f73911d4e5",
+        "android_client_info": {
+          "package_name": "com.anopensoul.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2rxs3NyepCGbtAcrPLVBXhChA6R6wR44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,12 @@
+{
+    "applinks": {
+      "apps": [],
+      "details": [
+        {
+          "appID": "3TM39HAGFN.com.anopensoul.app",
+          "paths": [ "/resetPassword", "/resetPassword/*" ]
+        }
+      ]
+    }
+  }
+  

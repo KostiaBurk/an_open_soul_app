@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 60px;
+      background-color: #f4f4f4;
+    }
+    #message {
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 20px;
+      background-color: #6a1b9a;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="message">Verifying...</h2>
+  <a id="backLink" class="button" href="#" style="display: none;">Return to app</a>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js';
+    import { getAuth, applyActionCode } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAIMwVsQuJCcPcKvHM4DGhDD5h3nTcGcdI",
+      authDomain: "an-open-soul.firebaseapp.com",
+      projectId: "an-open-soul"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const oobCode = urlParams.get('oobCode');
+    const messageEl = document.getElementById('message');
+    const backLink = document.getElementById('backLink');
+
+    if (oobCode) {
+      applyActionCode(auth, oobCode)
+        .then(() => {
+          messageEl.innerHTML = '<span class="success">✅ Email verified successfully!</span>';
+          backLink.style.display = 'inline-block';
+          backLink.href = 'an-open-soul://verified'; // ← можно заменить на любую кастомную схему
+        })
+        .catch((error) => {
+          console.error('Verification failed:', error);
+          messageEl.innerHTML = '<span class="error">❌ Verification failed or link is expired.</span>';
+          backLink.style.display = 'inline-block';
+          backLink.href = 'https://an-open-soul.web.app'; // или другой fallback
+        });
+    } else {
+      messageEl.innerHTML = '<span class="error">❌ Missing verification code.</span>';
+    }
+  </script>
+</body>
+</html>
